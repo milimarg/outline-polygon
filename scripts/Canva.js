@@ -28,16 +28,16 @@ class Canva {
 
     moveTo(x, y)
     {
-        this.canvas.moveTo(x, y);
+        this.ctx.moveTo(x, y);
     }
 
     lineTo(x, y)
     {
-        this.canvas.lineTo(x, y);
+        this.ctx.lineTo(x, y);
     }
 
     setColor(color)
     {
-        this.canvas.strokeStyle = color;
+        this.ctx.strokeStyle = color;
     }
 }
