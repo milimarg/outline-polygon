@@ -7,7 +7,7 @@ class Canva {
 
     getCanvasSize()
     {
-        return {"x": this.canvas.width, "y": this.canvas.height};
+        return {x: this.canvas.width, y: this.canvas.height};
     }
 
     clear()
@@ -26,8 +26,18 @@ class Canva {
         this.ctx.stroke();
     }
 
-    getCtx() // TODO: remove this method
+    moveTo(x, y)
     {
-        return this.ctx;
+        this.canvas.moveTo(x, y);
+    }
+
+    lineTo(x, y)
+    {
+        this.canvas.lineTo(x, y);
+    }
+
+    setColor(color)
+    {
+        this.canvas.strokeStyle = color;
     }
 }

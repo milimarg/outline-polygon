@@ -1,7 +1,8 @@
 class ConvexShape {
-    constructor(points)
+    constructor(points, color)
     {
         this.points = !points ? [] : points;
+        this.color = !color ? "#000000" : color;
         this.finished = false;
         this.offsetX = 15;
         this.offsetY = 15;
@@ -21,10 +22,11 @@ class ConvexShape {
     {
         if (shape.empty())
             return;
-        canvas.getCtx().moveTo(this.points[0].x, this.points[0].y);
+        canvas.moveTo(this.points[0].x, this.points[0].y);
         this.points.slice(1).forEach(point => {
-            canvas.getCtx().lineTo(point.x, point.y);
+            canvas.lineTo(point.x, point.y);
         });
+        canvas.setColor(this.color);
     }
 
     isFinished()
@@ -72,7 +74,7 @@ class ConvexShape {
         for (let i = 0; i < this.getPointsNumber(); i++) {
             const point = this.points[i];
             const point2 = this.points[(i + 1) % this.getPointsNumber()];
-            const crossProd = Math.crossProduct(point, point2, {x, y});
+            const crossProd = MyMath.crossProduct(point, point2, {x, y});
 
             if (lastCrossProduct === null) {
                 lastCrossProduct = crossProd;
@@ -82,5 +84,26 @@ class ConvexShape {
                 return false;
         }
         return true;
+    }
+
+    getCenter()
+    {
+        const n = this.getPointsNumber();
+        let area = 0;
+        let center = {x: 0, y: 0};
+
+        for (let i = 0; i < n; i++) {
+            const current = {x: this.points[i].x, y: this.points[i].y};
+            const next = {x: this.points[(i + 1) % n].x, y: this.points[(i + 1) % n].y};
+            const commonTerm = current.x * next.y - next.x * current.y;
+
+            area += commonTerm;
+            center.x += (current.x + next.x) * commonTerm;
+            center.y += (current.y + next.y) * commonTerm;
+        }
+        area /= 2;
+        center.x /= (6 * area);
+        center.y /= (6 * area);
+        return {x: center.x, y: center.y};
     }
 }
