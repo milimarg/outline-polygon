@@ -10,9 +10,13 @@ class Canva {
         return {"x": this.canvas.width, "y": this.canvas.height};
     }
 
-    beginDraw()
+    clear()
     {
         this.ctx.clearRect(0, 0, this.getCanvasSize().x, this.getCanvasSize().y);
+    }
+
+    beginDraw()
+    {
         this.ctx.beginPath();
     }
 
@@ -25,5 +29,10 @@ class Canva {
     getCtx()
     {
         return this.ctx;
+    }
+
+    getBoundingClientRect()
+    {
+        return this.canvas.getBoundingClientRect();
     }
 }
