@@ -6,7 +6,7 @@ class Mouse {
         this.onMouseMove = this.onMouseMove.bind(this);
     }
 
-    onMouseMove(e) // TODO: set as private
+    onMouseMove(e)
     {
         this.x = e.clientX;
         this.y = e.clientY;
@@ -16,6 +16,6 @@ class Mouse {
     {
         if (!this.x || !this.y)
             return null;
-        return {"x": this.x, "y": this.y};
+        return {x: this.x, y: this.y};
     }
 }

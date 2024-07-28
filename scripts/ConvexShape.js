@@ -1,7 +1,3 @@
-function crossProduct(point, point2, p3) {
-    return (point2.x - point.x) * (p3.y - point.y) - (point2.y - point.y) * (p3.x - point.x);
-}
-
 class ConvexShape {
     constructor(points)
     {
@@ -58,14 +54,14 @@ class ConvexShape {
 
     getPointsNumber()
     {
-        return this.points.length;
+        return this.getPoints().length;
     }
 
     updatePoint(index, {x, y})
     {
         if (index > this.getPointsNumber() - 1)
             return false;
-        this.points[index] = {"x": x, "y": y};
+        this.points[index] = {x: x, y: y};
         return true;
     }
 
@@ -73,11 +69,10 @@ class ConvexShape {
     {
         let lastCrossProduct = null;
 
-        for (let i = 0; i < this.points.length; i++) {
+        for (let i = 0; i < this.getPointsNumber(); i++) {
             const point = this.points[i];
-            const point2 = this.points[(i + 1) % this.points.length];
-
-            const crossProd = crossProduct(point, point2, {x, y});
+            const point2 = this.points[(i + 1) % this.getPointsNumber()];
+            const crossProd = Math.crossProduct(point, point2, {x, y});
 
             if (lastCrossProduct === null) {
                 lastCrossProduct = crossProd;

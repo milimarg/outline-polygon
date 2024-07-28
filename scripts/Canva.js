@@ -26,13 +26,8 @@ class Canva {
         this.ctx.stroke();
     }
 
-    getCtx()
+    getCtx() // TODO: remove this method
     {
         return this.ctx;
-    }
-
-    getBoundingClientRect()
-    {
-        return this.canvas.getBoundingClientRect();
     }
 }
