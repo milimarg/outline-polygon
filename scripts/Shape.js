@@ -1,4 +1,4 @@
-class ConvexShape {
+class Shape {
     constructor(points, color)
     {
         this.points = !points ? [] : points;
@@ -11,6 +11,8 @@ class ConvexShape {
     addPoint({x, y})
     {
         this.points.push({x: x, y: y});
+        if (!this.isConvex())
+            this.points.pop();
     }
 
     empty()
@@ -105,5 +107,37 @@ class ConvexShape {
         center.x /= (6 * area);
         center.y /= (6 * area);
         return {x: center.x, y: center.y};
+    }
+
+    isConvex()
+    {
+        const n = this.getPointsNumber();
+        if (n < 4)
+            return true;
+
+        let previous = 0;
+
+        for (let i = 0; i < n; i++) {
+            const next = this.points[(i + 1) % n];
+            const nextAgain = this.points[(i + 2) % n];
+            const d1 = {
+                x: nextAgain.x - next.x,
+                y: nextAgain.y - next.y
+            };
+            const d2 = {
+                x: this.points[i].x - next.x,
+                y: this.points[i].y - next.y
+            };
+            const zCrossProduct = d1.x * d2.y - d1.y * d2.x;
+
+            if (zCrossProduct === 0)
+                continue;
+            const currentSign = Math.sign(zCrossProduct);
+            if (previous === 0)
+                previous = currentSign;
+            else if (currentSign !== previous)
+                return false;
+        }
+        return true;
     }
 }

@@ -1,9 +1,9 @@
 const mouse = new Mouse;
 const canvas = new Canva;
 
-const shape = new ConvexShape;
-const translationLine = new ConvexShape(null, "#0000FF");
-const convexHull = new ConvexShape(null, "#FF0000");
+const shape = new Shape;
+const translationLine = new Shape(null, "#0000FF");
+const convexHull = new Shape(null, "#FF0000");
 
 let shapeClone = null;
 let isCloneClicked = false;
@@ -20,7 +20,7 @@ function mouseMovements(e)
 
 function cloneObject(obj)
 {
-    return new ConvexShape([...obj.getPoints()]);
+    return new Shape([...obj.getPoints()]);
 }
 
 function canvasOnClicked()
@@ -28,7 +28,7 @@ function canvasOnClicked()
     const mousePosition = mouse.getPosition();
 
     if (!shape.isFinished()) {
-        createConvexShape(mousePosition);
+        createShape(mousePosition);
         return;
     }
 
@@ -50,7 +50,7 @@ function canvasOnClicked()
     }
 }
 
-function createConvexShape(mousePosition)
+function createShape(mousePosition)
 {
     if (!mousePosition)
         return;
