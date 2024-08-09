@@ -10,6 +10,9 @@ let isCloneClicked = false;
 let lastMousePos = {x: 0, y: 0};
 let hover = null;
 
+const canvasObject = document.getElementById("canvas");
+
+canvasObject.addEventListener("click", canvasOnClicked);
 document.addEventListener("mousemove", mouseMovements, false);
 
 function mouseMovements(e)

@@ -1,4 +1,5 @@
-function orientation(p, q, r) {
+function orientation(p, q, r)
+{
     const val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
     if (val === 0)
         return 0;
@@ -8,7 +9,7 @@ function orientation(p, q, r) {
 function calculateConvexHull(points)
 {
     const n = points.length;
-    let hull = [];
+    const hull = [];
     let l = 0;
     let q = 0;
 
