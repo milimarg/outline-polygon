@@ -1,3 +1,11 @@
 #canvas {
     border: 1px solid black;
 }
+
+#info {
+    color: blue;
+}
+
+#error {
+    color: red;
+}

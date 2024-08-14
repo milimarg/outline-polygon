@@ -1,3 +1,5 @@
+const errorBox = document.getElementById("error");
+
 class Shape {
     constructor(points, color)
     {
@@ -8,11 +10,22 @@ class Shape {
         this.offsetY = 15;
     }
 
+    clear()
+    {
+        while (this.getPointsNumber() > 0)
+            this.points.pop();
+    }
+
     addPoint({x, y})
     {
         this.points.push({x: x, y: y});
-        if (!this.isConvex())
+        if (!this.isConvex()) {
+            errorBox.innerText = "Couldn't set point: the polygon wouldn't be convex anymore."
             this.points.pop();
+            return false;
+        } else
+            errorBox.innerText = "";
+        return true;
     }
 
     empty()
@@ -69,7 +82,7 @@ class Shape {
         return true;
     }
 
-    isHovered(x, y)
+    isHovered({x, y})
     {
         let lastCrossProduct = null;
 
