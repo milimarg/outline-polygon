@@ -11,6 +11,7 @@ let lastMousePos = {x: 0, y: 0};
 let hover = null;
 
 const canvasObject = document.getElementById("canvas");
+const infoBox = document.getElementById("info");
 
 canvasObject.addEventListener("click", canvasOnClicked);
 document.addEventListener("mousemove", mouseMovements, false);
@@ -36,9 +37,9 @@ function canvasOnClicked()
     }
 
     if (!shapeClone)
-        hover = shape.isHovered(mousePosition.x, mousePosition.y);
+        hover = shape.isHovered(mousePosition);
     else
-        hover = shapeClone.isHovered(mousePosition.x, mousePosition.y);
+        hover = shapeClone.isHovered(mousePosition);
 
     if (!isCloneClicked && hover) {
         if (!shapeClone)
@@ -64,10 +65,14 @@ function createShape(mousePosition)
         shape.setFinished();
         translationLine.addPoint(center);
         translationLine.addPoint(center);
+        infoBox.innerText = `Shape is finished.`;
         return;
     }
 
-    shape.addPoint(mousePosition);
+    if (shape.addPoint(mousePosition))
+        infoBox.innerText = `You added a point at (${mousePosition.x}, ${mousePosition.y}).`;
+    else
+        infoBox.innerText = "";
 }
 
 function polygonDraw()
@@ -88,10 +93,10 @@ function polygonDraw()
     }
 
     if (shapeClone) {
+        convexHull.clear();
         const points = calculateConvexHull([...shape.getPoints(), ...shapeClone.getPoints()]);
-        points.forEach(function (point, i) {
-            if (!convexHull.updatePoint(i, point))
-                convexHull.addPoint(point);
+        points.forEach(point => {
+            convexHull.addPoint(point);
         });
     }
 
