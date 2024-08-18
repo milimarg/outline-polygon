@@ -3,6 +3,7 @@ const canvas = new Canva;
 
 const shape = new Shape;
 const translationLine = new Shape(null, "#0000FF");
+const tempLine = new Shape([{x: 0, y: 0}, {x: 0, y: 0}]);
 const convexHull = new Shape(null, "#FF0000");
 
 let shapeClone = null;
@@ -91,6 +92,8 @@ function polygonDraw()
     if (shape.isFinished())
         canvas.endDraw();
     canvas.stroke();
+
+    drawTemporaryLine();
 
     if (shapeClone) {
         drawShapeClone();
