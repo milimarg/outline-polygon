@@ -44,4 +44,9 @@ class Canva {
     {
         this.ctx.strokeStyle = color;
     }
+
+    getBoundingClientRect()
+    {
+        return this.canvas.getBoundingClientRect();
+    }
 }

@@ -2,7 +2,7 @@ function drawTemporaryLine() {
     if (shape.isFinished() || shape.empty())
         return;
     const lastPoint = shape.getPoints()[shape.getPointsNumber() - 1];
-    const mousePosition = mouse.getPosition();
+    const mousePosition = mouse.getPosition(canvas);
 
     if (!mousePosition)
         return;

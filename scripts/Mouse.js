@@ -12,10 +12,11 @@ class Mouse {
         this.y = e.clientY;
     }
 
-    getPosition()
+    getPosition(canvas)
     {
         if (!this.x || !this.y)
             return null;
-        return {x: this.x, y: this.y};
+        const rect = canvas.getBoundingClientRect();
+        return {x: this.x - rect.left, y: this.y - rect.top};
     }
 }

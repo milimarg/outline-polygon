@@ -1,6 +1,6 @@
 function drawShapeClone()
 {
-    let mousePosition = mouse.getPosition();
+    let mousePosition = mouse.getPosition(canvas);
 
     if (!mousePosition)
         mousePosition = lastMousePos;

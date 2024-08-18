@@ -44,7 +44,7 @@ function cloneObject(obj)
 
 function canvasOnClicked()
 {
-    const mousePosition = mouse.getPosition();
+    const mousePosition = mouse.getPosition(canvas);
 
     if (!shape.isFinished()) {
         createShape(mousePosition);
