@@ -21,19 +21,39 @@ canvasObject.addEventListener("mousedown", canvasOnMouseDown);
 canvasObject.addEventListener("mouseup", canvasOnMouseUp);
 document.addEventListener("mousemove", mouseMovements, false);
 
+let hold = false;
+
 function canvasOnMouseDown()
 {
-
+    if (!shape.isFinished())
+        return;
+    const mousePosition = mouse.getPosition(canvas);
+    hover = shapeClone.isHovered(mousePosition);
+    if (hover)
+        hold = true;
 }
 
 function canvasOnMouseUp()
 {
-
+    if (!shape.isFinished())
+        return;
+    hold = false;
 }
 
 function mouseMovements(e)
 {
     mouse.onMouseMove(e);
+
+    const mousePosition = mouse.getPosition(canvas);
+
+    if (shape.isFinished() && !shapeClone)
+        shapeClone = cloneObject(shape);
+    if (hold) {
+        const offset = {x: mousePosition.x - lastMousePos.x, y: mousePosition.y - lastMousePos.y};
+        shapeClone.translatePoints(offset.x, offset.y);
+        translationLine.updatePoint(1, shapeClone.getCenter());
+    }
+    lastMousePos = mousePosition;
     polygonDraw();
 }
 
@@ -46,27 +66,8 @@ function canvasOnClicked()
 {
     const mousePosition = mouse.getPosition(canvas);
 
-    if (!shape.isFinished()) {
+    if (!shape.isFinished())
         createShape(mousePosition);
-        return;
-    }
-
-    if (!shapeClone)
-        hover = shape.isHovered(mousePosition);
-    else
-        hover = shapeClone.isHovered(mousePosition);
-
-    if (!isCloneClicked && hover) {
-        if (!shapeClone)
-            shapeClone = cloneObject(shape);
-        isCloneClicked = true;
-        lastMousePos = mousePosition;
-        return;
-    }
-    if (isCloneClicked && hover) {
-        isCloneClicked = false;
-        lastMousePos = mousePosition;
-    }
 }
 
 function createShape(mousePosition)

@@ -9,8 +9,7 @@ function drawShapeClone()
 
     canvas.beginDraw();
     if (isCloneClicked) {
-        shapeClone.translate(offset.x, offset.y);
-        translationLine.updatePoint(1, shapeClone.getCenter());
+        //shapeClone.translate(offset.x, offset.y);
         lastMousePos = mousePosition;
     }
     shapeClone.draw(canvas);
