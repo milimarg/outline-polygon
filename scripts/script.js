@@ -9,7 +9,6 @@ const convexHull = new Shape(null, "#FF0000");
 let shapeClone = null;
 let isCloneClicked = false;
 let lastMousePos = {x: 0, y: 0};
-let hover = null;
 
 let isFirstTimeDrawing = true;
 
@@ -28,8 +27,7 @@ function canvasOnMouseDown()
     if (!shape.isFinished())
         return;
     const mousePosition = mouse.getPosition(canvas);
-    hover = shapeClone.isHovered(mousePosition);
-    if (hover)
+    if (shapeClone.isHovered(mousePosition))
         hold = true;
 }
 
