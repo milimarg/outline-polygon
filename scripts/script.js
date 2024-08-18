@@ -10,6 +10,8 @@ let isCloneClicked = false;
 let lastMousePos = {x: 0, y: 0};
 let hover = null;
 
+let a = false;
+
 const canvasObject = document.getElementById("canvas");
 const infoBox = document.getElementById("info");
 
@@ -65,7 +67,8 @@ function createShape(mousePosition)
         shape.setFinished();
         translationLine.addPoint(center);
         translationLine.addPoint(center);
-        infoBox.innerText = `Shape is finished.`;
+        infoBox.innerText = "Shape is finished.";
+        canvas.endDraw();
         return;
     }
 
@@ -79,20 +82,18 @@ function polygonDraw()
 {
     canvas.clear();
 
-    canvas.beginDraw();
-    shape.draw(canvas);
-    canvas.endDraw();
-
-    if (shapeClone)
-        drawShapeClone();
-
-    if (!translationLine.empty()) {
+    if (!a || shape.isFinished()) {
         canvas.beginDraw();
-        translationLine.draw(canvas);
-        canvas.endDraw();
+        a = true;
     }
 
+    shape.draw(canvas);
+    if (shape.isFinished())
+        canvas.endDraw();
+    canvas.stroke();
+
     if (shapeClone) {
+        drawShapeClone();
         convexHull.clear();
         const points = calculateConvexHull([...shape.getPoints(), ...shapeClone.getPoints()]);
         points.forEach(point => {
@@ -100,9 +101,17 @@ function polygonDraw()
         });
     }
 
+    if (!translationLine.empty()) {
+        canvas.beginDraw();
+        translationLine.draw(canvas);
+        canvas.endDraw();
+        canvas.stroke();
+    }
+
     if (!convexHull.empty()) {
         canvas.beginDraw();
         convexHull.draw(canvas);
         canvas.endDraw();
+        canvas.stroke();
     }
 }

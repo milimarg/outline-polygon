@@ -1,9 +1,9 @@
 function drawShapeClone()
 {
-    const mousePosition = mouse.getPosition();
+    let mousePosition = mouse.getPosition();
 
     if (!mousePosition)
-        return;
+        mousePosition = lastMousePos;
 
     const offset = {x: mousePosition.x - lastMousePos.x, y: mousePosition.y - lastMousePos.y};
 
@@ -17,4 +17,5 @@ function drawShapeClone()
     }
     shapeClone.draw(canvas);
     canvas.endDraw();
+    canvas.stroke();
 }

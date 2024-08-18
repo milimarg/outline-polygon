@@ -23,6 +23,10 @@ class Canva {
     endDraw()
     {
         this.ctx.closePath();
+    }
+
+    stroke()
+    {
         this.ctx.stroke();
     }
 
