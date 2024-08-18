@@ -153,4 +153,11 @@ class Shape {
         }
         return true;
     }
+
+    translate(x, y)
+    {
+        shapeClone.getPoints().forEach(function (value, i) {
+            shapeClone.updatePoint(i, {x: value.x + x, y: value.y + y});
+        });
+    }
 }

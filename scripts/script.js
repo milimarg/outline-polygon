@@ -11,13 +11,25 @@ let isCloneClicked = false;
 let lastMousePos = {x: 0, y: 0};
 let hover = null;
 
-let a = false;
+let isFirstTimeDrawing = true;
 
 const canvasObject = document.getElementById("canvas");
 const infoBox = document.getElementById("info");
 
 canvasObject.addEventListener("click", canvasOnClicked);
+canvasObject.addEventListener("mousedown", canvasOnMouseDown);
+canvasObject.addEventListener("mouseup", canvasOnMouseUp);
 document.addEventListener("mousemove", mouseMovements, false);
+
+function canvasOnMouseDown()
+{
+
+}
+
+function canvasOnMouseUp()
+{
+
+}
 
 function mouseMovements(e)
 {
@@ -83,11 +95,10 @@ function polygonDraw()
 {
     canvas.clear();
 
-    if (!a || shape.isFinished()) {
+    if (isFirstTimeDrawing || shape.isFinished()) {
         canvas.beginDraw();
-        a = true;
+        isFirstTimeDrawing = false;
     }
-
     shape.draw(canvas);
     if (shape.isFinished())
         canvas.endDraw();
